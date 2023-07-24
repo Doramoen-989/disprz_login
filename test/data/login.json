@@ -1,0 +1,93 @@
+{
+    "name": "Login Page",
+    "nonActionableElements": {
+      "languageSelection": {
+        "disprzComponentType": "Label",
+        "xpath": "//div[@title='Change language']",
+        "labelText": {
+          "en": "EN",
+          "fr": "FR"
+        }
+      },
+      "signInButton": {
+        "disprzComponentType": "Button",
+        "xpath": "//button[contains(@class,'siginin-button')]",
+        "labelText": {
+          "en": "Disprz",
+          "fr": ""
+        }
+      }
+    },
+    "actionableElements": {
+      "languageSelection": {
+        "disprzComponentType": "Button",
+        "xpath": "//div[@title='Change language']//div[@class='Select Select--single']",
+        "labelText": {
+          "en": "Change language",
+          "fr": "Changer la langue"
+        },
+        "action": "Click"
+      },
+      "forgotPassword": {
+        "disprzComponentType": "Button",
+        "xpath": "//a[contains(text(),'Forgot Credentials')]",
+        "labelText": {
+          "en": "Forgot Credentials?",
+          "fr": "Forgot Credentials?"
+        },
+        "action": "Click"
+      },
+      "userName": {
+        "disprzComponentType": "Label",
+        "xpath": "//input[contains(@class, 'combined-input-box') and @type='text']",
+        "labelText": {
+          "en": "User Name"
+        },
+        "action": "Type"
+      },
+      "password": {
+        "disprzComponentType": "Label",
+        "xpath": "//input[contains(@class, 'combined-input-box') and @type='password']",
+        "labelText": {
+          "en": "Password",
+          "fr": "Password"
+        },
+        "action": "Type"
+      },
+      "signIn": {
+        "disprzComponentType": "Button",
+        "xpath": "//div[contains(@class, 'signin-button-ctr') and not (contains(@class, 'forgot-credentials-hide')) ]//button[contains(@class, 'app-button')]",
+        "labelText": {
+          "en": "Sign in",
+          "fr": "Se connecter"
+        },
+        "action": "Click"
+      },
+      "validateReturnText": {
+        "disprzComponentType": "Button",
+        "xpath": "//div[@class='input-label-item' and text()='User ID']",
+        "labelText": {
+          "en": "User ID"
+        },
+        "action": "ReturnText"
+      },
+      "productVersion": {
+        "disprzComponentType": "Label",
+        "xpath": "//div[@class='product-version']",
+        "labelText": {
+          "en": "",
+          "fr": ""
+        },
+        "action": "MouseHover"
+      },
+      "password2": {
+        "disprzComponentType": "Label",
+        "xpath": "//input[@type='password']",
+        "labelText": {
+          "en": "Password",
+          "fr": "Password"
+        },
+        "action": "SelectAllClearAndType"
+      }
+    }
+  }

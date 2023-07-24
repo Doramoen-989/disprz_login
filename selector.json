@@ -1,0 +1,8 @@
+{
+    "User_Administration":"p.card-title",
+    "Users": "p.card-link",
+    "Add_a_new_User_manually": "div.task-type-description",
+    "clicking_Create" : ".app-button-label",
+    "search_user":"li.list-item div.task-type-description",
+    "validating_user":"div.listing-row  div.cell"
+}
