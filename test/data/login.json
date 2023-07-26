@@ -39,7 +39,7 @@
       },
       "userName": {
         "disprzComponentType": "Label",
-        "xpath": "//input[contains(@class, 'combined-input-box') and @type='text']",
+        "xpath": "input.combined-input-box[type='text']",
         "labelText": {
           "en": "User Name"
         },

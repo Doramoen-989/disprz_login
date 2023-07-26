@@ -1,90 +1,53 @@
 import LoginPage from '../pageobjects/login.page';
-import AdminPage from '../pageobjects/adminclick';
-import Adduser from '../pageobjects/adduser';
-import { expect } from 'chai';
-// import * as fs from 'fs';
-import JsonPath from 'C:\\Users\\leelavathi.p_disprz\\Desktop\\disprz_login\\selector.json';
-import { addAttachment } from '@wdio/allure-reporter';
-import { parseJson } from '../UIConfigurationProvider';
-import {PageDataStorage} from '../UIConfigurationProvider';
 import jsondata from '../pageobjects/jsondata';
+import { parseAndValidateJson } from '../UIConfigurationProvider';
+import { UIComponentVerifier } from '../disprz/utils/UIComponentVerifier';
+import { ActionType } from '../disprz/qaautomation/config/ActionType';
+import { waitForDisplayed } from 'webdriverio/build/commands/element';
+import { waitUntil } from 'webdriverio/build/commands/browser';
 
-const loginData = parseJson('login');
-const pageDataStorage = new PageDataStorage();
-pageDataStorage.addPageData('login', loginData);
-const CredentialsData = parseJson('credentials');
-console.log('data is', CredentialsData);
+var performActions = new UIComponentVerifier();
 
-// pageDataStorage.addPageData('credentials', CredentialsData);
-const loginPageData = pageDataStorage.getPageData('Login');
-// const credentialsPageData = pageDataStorage.getPageData('credentials');
+const JsonfileData = parseAndValidateJson('login');
 
-let user1 = 'leela' + Math.floor((Math.random()*Date.now())/100);
+let user1 = 'leela' + Math.floor((Math.random() * Date.now()) / 100);
 
 describe('My Login application', () => {
     beforeEach(async () => {
         browser.maximizeWindow();
-        await browser.pause(5000);
+        await LoginPage.open('');
+        browser.waitUntil(
+            () => browser.execute(() => document.readyState === 'complete'),
+            {
+              timeout: 60 * 1000, // 60 seconds
+              timeoutMsg: 'Message on failure'
+            }
+          )
+        
     });
     it('should login with valid credentials', async () => {
-        await LoginPage.open('');
-        console.log('test1');
-        // await $(loginPageData?.actionableElements['userName']?.xpath).isExisting();
-        // $(loginPageData?.actionableElements['userName']?.xpath).setValue('leelavathi_admin');
-        // await $(loginData.actionableElements.signIn.xpath).isExisting();
-        // $(loginPageData?.actionableElements['password']?.xpath).setValue('qwe');
-        // // await LoginPage.login('leelavathi_admin', 'qwe');
-        // await $(loginPageData?.actionableElements.signIn.xpath).isExisting();
-        // console.log('leela')
-        // $(loginPageData?.actionableElements.signIn.xpath).click();
-        // await AdminPage.switchToIframeAndClick();
+        // await LoginPage.open('');
+        // const userNameElementXPath = await jsondata.actionableElementPath('userName');
+        // // const userNameElement = await $(userNameElementXPath).setValue(CredentialsData?.credentials?.username);;
+        // const userNameElement = await $(userNameElementXPath).setValue('leelavathi_admin');;
+        // const passwordElementXPath = await jsondata.actionableElementPath('password');
+        // // const passwordElement = await $(passwordElementXPath).setValue(CredentialsData?.credentials?.password);
+        // const passwordElement = await $(passwordElementXPath).setValue('qwe');
+        // const signInElementXPath = await jsondata.actionableElementPath('signIn');
+        // const signInElement = (await $(signInElementXPath)).click();
 
-        // const userNameElement = $(loginPageData?.actionableElements['username']?.xpath);
 
-        const userNameElementXPath = await jsondata.actionableElementPath('userName');
-        const userNameElement = await $(userNameElementXPath).setValue(CredentialsData?.credentials?.username);;
-        const passwordElementXPath = await jsondata.actionableElementPath('password');
-        const passwordElement = await $(passwordElementXPath).setValue(CredentialsData?.credentials?.password);
-        const signInElementXPath = await jsondata.actionableElementPath('signIn');
-        const signInElement = (await $(signInElementXPath)).click();
+        await performActions.performActions('login', 'userName', 'leelavathi_admin');
+        console.log('step1 done');
 
-        // await browser.performActions([
-           
-        //     { action: 'key', element: userNameElement, value: 'leelavathi_admin' },
-        //     { action: 'waitForExist', element: userNameElement },
-        //     { action: 'setValue', element: passwordElement, value: 'qwe' },
-        //     { action: 'waitForExist', element: signInElement },
-        //     { action: 'click', element: signInElement }
-        // ]);
+        await performActions.performActions('login', 'password', 'qwe');
+        console.log('step 2 is done');
 
-    
-        // console.log(loginData);
-        // await AdminPage.click_functionality(JsonPath.User_Administration,'User Administration');
-        // await AdminPage.click_functionality(JsonPath.Users,'Users');
-        // await browser.waitUntil(async () => {
-        // const currentUrl = await browser.getUrl();
-        // return currentUrl === 'https://qa.disprz.com/#!/admin/users';
-        // }, { timeout: 10000, 
-        // timeoutMsg: 'time out'});
-        // await AdminPage.click_functionality(JsonPath.Add_a_new_User_manually, 'Add a new User manually');
-        // await Adduser.login(user1, 'qwe', 'leela');
-        // await browser.pause(5000);
-        // await Adduser.UploadPhotoOfUser();
-        // await browser.pause(5000);
-        // await Adduser.fileupload('dis.png');
-        // await browser.pause(5000);
-        // await AdminPage.click_functionality(JsonPath.clicking_Create, 'Create');
+        await performActions.performActions('login', 'signIn', null);
+        console.log('step 3 is done');
+        browser.pause(10000);
+
     });
-
-    // it('search the user', async() => {
-    //     await AdminPage.click_functionality(JsonPath.search_user, 'Search for existing users to view or modify them');
-    //     await Adduser.searchLogin(user1);
-    //     await Adduser.searchButton();
-    //     const check_user = await AdminPage.validating_user();
-    //     expect(check_user).to.equals(user1);
-    //     await browser.pause(5000);
-    // });
 });
 
 
-   

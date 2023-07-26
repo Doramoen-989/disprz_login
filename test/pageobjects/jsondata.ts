@@ -1,18 +1,14 @@
-import { parseJson } from '../UIConfigurationProvider';
+import { parseAndValidateJson } from '../UIConfigurationProvider';
 import {PageDataStorage} from '../UIConfigurationProvider';
 
-const loginData = parseJson('login');
-const pageDataStorage = new PageDataStorage();
-pageDataStorage.addPageData('Login', loginData);
-const loginPageData = pageDataStorage.getPageData('Login');
+const loginData = parseAndValidateJson('login');
 
 class Jsondata {
-public  async actionableElementPath(path: string){
-    const elementpath = loginPageData?.actionableElements[path]?.xpath;
-    // const elementpath = loginPageData?.actionableElements' + "['" + path + "]'" + '?.xpath'
-
-    return elementpath;
-}
+    public  async actionableElementPath(path: string){
+        const elementpath = loginData?.actionableElements[path]?.xpath;
+        return elementpath;
+    }
+    
 
 }
 

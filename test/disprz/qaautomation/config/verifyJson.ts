@@ -1,17 +1,19 @@
 import fs from 'fs';
 import winston from 'winston';
 
+/// importing logger 
 export const logger = winston.createLogger({
-  level: 'error', 
+  level: 'error',
   format: winston.format.combine(
-    winston.format.timestamp(), 
+    winston.format.timestamp(),
     winston.format.printf((info) => {
       return `[${info.timestamp}] [${info.level.toUpperCase()}]: ${info.message}`;
     })
   ),
-  transports: [new winston.transports.Console()], 
+  transports: [new winston.transports.Console()],
 });
 
+// destructuring the JSON using interface
 export interface PageData {
   name: string;
   nonActionableElements: { [key: string]: NonActionableElement };
@@ -58,23 +60,14 @@ export class PageDataStorage {
   }
 }
 
-export function parseAndValidateJson(filename: string): PageData | null {
-  const filePath = 'test/data/' + filename + '.json';
-
-  try {
-    const jsonData = fs.readFileSync(filePath, 'utf-8');
-    const parsedData = JSON.parse(jsonData);
-    const validatedData = validateJsonData(parsedData);
-    return validatedData;
-  } catch (error) {
-    logger.error('Failed to parse JSON file:', error);
-    return null;
-  }
-}
-
-function validateJsonData(jsonData: any): PageData {
-  if (!jsonData.name || !jsonData.actionableElements || !jsonData.nonActionableElements) {
-    throw new Error('JSON file is not in the correct format.');
-  }
-  return jsonData as PageData;
+  export function parseAndValidateJson(filename: string): PageData | null {
+    const filePath = 'test/data/' + filename + '.json';
+  
+    try {
+      const jsonData = fs.readFileSync(filePath, 'utf-8');
+      return JSON.parse(jsonData) as PageData;
+    } catch (error) {
+      logger.error('Failed to parse JSON file:', error);
+      return null;
+    }
 }
